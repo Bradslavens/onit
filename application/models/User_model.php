@@ -1,49 +1,55 @@
 <?php
 class User_model extends CI_Model {
 
+	protected $hash_password;
 	public function __construct()
 	{
 		$this->load->database();
 	}
 
-	public function get_user($email = NULL)
+	/**
+	 * set up a new user
+	 * @param string $username username
+	 * @param string $email email
+	 * @param string $password password
+	 *
+	 * @return int $user_id
+	 */
+	public function set_user($user_name, $email , $password = NULL)
 	{
-		// if email verify contact does not exist
-		$query= $this->db->get_where('contacts', array('email' => $email));
-		return $query->result_array();
-	}
+		/**
+		 * if password then hash the password
+		 */
+		if($password !=NULL)
+		{
 
-	public function set_user()
-	{
+			$this->hash_password = password_hash($password), PASSWORD_DEFAULT);
 
-		if($this->input->post('email'))
-			{ 
-				echo "1 or more";
-				exit();
-			}
+		}
+		else
+		{
+			die('no direct access');
+		}
 
 
-			// cryp the password
-			$hash_password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+		/**
+		 * Collect form data
+		 */
+		$data = array(
+			'email'=>$email,
+			'password'=>$hash_password,
+			'user_name'=>$user_name,
+			);
 
-			// set input data
-			$data = array(
-				'first_name'=>$this->input->post('first_name'),
-				'last_name'=>$this->input->post('last_name'),
-				'email'=>$this->input->post('email'),
-				'password'=>$hash_password,
-				'mail_list'=>$this->input->post('check_box')
-				);
+		/**
+		 * insert the new user
+		 */
+		$this->db->insert('users',$data);
 
-			return $this->db->insert('contacts',$data);
-	}
-
-	public function get_login()
-	{
-		$query= $this->db->get_where('contacts', array('email'=>$this->input->post('email')));
-		$row=$query->result_array();
-		//get the first row  should just return one row
-		return $row[0];
+		/**
+		 * return the user id
+		 */
+		return $this->db->insert_id();
 	}
 
 }
