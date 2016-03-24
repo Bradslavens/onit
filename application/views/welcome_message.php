@@ -14,7 +14,7 @@
             <h4 class="modal-title" id="myModalLabel">Login</h4>
           </div>
           <div class="modal-body">
-             <?php echo form_open('welcome/check_login'); ?>
+             <?php echo form_open('user/check_login'); ?>
 
               <span style="color:white;"><?php echo validation_errors(); ?></span>
               

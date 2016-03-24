@@ -10,50 +10,52 @@ class User extends CI_Controller {
 	}
 
 
-	public function index()
-	{
-		/**
-		 * load the helpers and libraries
-		 */
-		$this->load->helper('form');
-		$this->load->library('form_validation');
+	// public function index()
+	// {
+	// 	echo "check";
+	// 	die();
+	// 	/**
+	// 	 * load the helpers and libraries
+	// 	 */
+	// 	$this->load->helper('form');
+	// 	$this->load->library('form_validation');
 
-		/**
-		 * load the header , includes bootstrap etc.
-		 */
-		$this->load->view('templates/header');
+	// 	/**
+	// 	 * load the header , includes bootstrap etc.
+	// 	 */
+	// 	$this->load->view('templates/header');
 
-		/**
-		 * Set vaildation rules
-		 */
-		$this->form_validation->set_rules('email', 'email', 'required|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'required | xss_clean');
+	// 	/**
+	// 	 * Set vaildation rules
+	// 	 */
+	// 	$this->form_validation->set_rules('email', 'email', 'required|xss_clean');
+	// 	$this->form_validation->set_rules('password', 'Password', 'required | xss_clean');
 
-		/**
-		 * Check validation
-		 */
-		if($this->form_validation->run()===FALSE)
-		{
-			/**
-			 * If the login fails validation
-			 * load the welcome page
-			 */
-			$this->load->view('welcome_message');
-		}
-		else
-		{
-			/**
-			 * If the login succeeds set the user 
-			 */
-			$data['users']=$this->user_model->set_user();
-		}
+	// 	/**
+	// 	 * Check validation
+	// 	 */
+	// 	if($this->form_validation->run()===FALSE)
+	// 	{
+	// 		/**
+	// 		 * If the login fails validation
+	// 		 * load the welcome page
+	// 		 */
+	// 		$this->load->view('welcome_message');
+	// 	}
+	// 	else
+	// 	{
+	// 		/**
+	// 		 * If the login succeeds set the user 
+	// 		 */
+	// 		$data['users']=$this->users_model->set_user();
+	// 	}
 
-		/**
-		 * Load the footer , includes scripts
-		 */
-		$this->load->view('templates/footer');
+	// 	/**
+	// 	 * Load the footer , includes scripts
+	// 	 */
+	// 	$this->load->view('templates/footer');
 
-	}
+	// }
 
 	/**
 	 * Register new user
@@ -72,24 +74,8 @@ class User extends CI_Controller {
 		/**
 		 * Set vaildation rules
 		 */
-		$this->form_validation->set_rules('email', 'email', 'required|xss_clean | callback_email_check');  //TODO MAKE EMAIL UNIQUE
-		$this->form_validation->set_rules('password', 'Password', 'required | xss_clean');
+		$this->form_validation->set_rules('email', 'email', 'required|xss_clean | callback_email_check');  
 
-
-		public function email_check($str)
-		{
-			// check email
-
-			if ($this->users_model->check_email_unique($str))
-			{
-				return TRUE;
-			}
-			else
-			{
-				$this->form_validation->set_message('email_check', 'That email is already in use.');
-				return FALSE;
-			}
-		}
 
 		/**
 		 * Validate form
@@ -122,9 +108,24 @@ class User extends CI_Controller {
 
 		}
 
-		$this->load->view('footer');
+		$this->load->view('templates/footer');
 	}
 
+
+	public function email_check($str)
+	{
+		// check email
+
+		if ($this->users_model->check_email_unique($str))
+		{
+			return TRUE;
+		}
+		else
+		{
+			$this->form_validation->set_message('email_check', 'That email is already in use.');
+			return FALSE;
+		}
+	}
 
 
 	public function check_login()
@@ -135,7 +136,7 @@ class User extends CI_Controller {
 
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-		$data['login']=$this->user_model->get_login();
+		$data['login']=$this->users_model->get_login();
 
 		if($this->form_validation->run()===FALSE)
 		{

@@ -1,3 +1,8 @@
+#RewriteEngine on
+#RewriteCond $1 !^(index\.php|_/images|robots\.txt|assets|securimage/securimage_show\.php)
+#RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+
 RewriteEngine on
 RewriteCond $1 !^(index\.php|_/images|robots\.txt|assets|securimage/securimage_show\.php)
-RewriteRule ^(.*)$ /index.php?/$1 [L]
+RewriteRule ^localhost/onit/(.*)$ /index.php?/$1 [L]
