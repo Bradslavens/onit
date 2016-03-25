@@ -20,28 +20,24 @@ class Users_model extends CI_Model {
 	 *
 	 * @return int $user_id
 	 */
-	public function set_user($email , $password = NULL)	{
+	public function set_user($email , $password = NULL, $fn, $ln)	{
 
 		//if password then hash the password
 		if($password !=NULL)		{
-
 			$this->hash_password = password_hash($password, PASSWORD_DEFAULT);
-
 		}
 		else		{
-
 			die('no direct access');
 		}
-
 		//Collect form data
 		$data = array(
 			'pw'=>$this->hash_password,
 			'email'=>$email,
+			'first_name' => $fn,
+			'last_name' => $ln,
 			);
-
 		//insert the new user
 		$this->db->insert('users',$data);
-
 		//return the user id
 		return $this->db->insert_id();
 	}
@@ -66,6 +62,20 @@ class Users_model extends CI_Model {
 			return  FALSE;  // email IS NOT unique
 		}
 	}
+
+	/**
+	 * get the requested users hash
+	 * @param string $email 
+	 * @return string hash
+	 */
+	public function get_users_hash($email){
+		$this->db->select('pw');
+		$this->db->where('email', $email);
+		$q = $this->db->get('users');
+		$r = $q->row();
+		return $r->pw;
+	}
+
 
 	// Todo logout
 

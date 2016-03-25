@@ -2,7 +2,7 @@
 
 	<?php echo validation_errors(); ?>
 
-	<?php echo form_open('welcome/register_user'); //<form>
+	<?php echo form_open('user/register'); //<form>
 	?>
 
 	<?php
@@ -60,11 +60,6 @@
 	    <!-- <p class="help-block">Example block-level help text here.</p> -->
 	  </div>
 
-	  <div class="checkbox">
-	    <label>
-	      <?php echo form_input($checkbox); ?>Add me to your mailing list for news and updates
-	    </label>
-	  </div>
 	  <?php echo form_button($submit); ?>
 	  <!-- <button type="submit" class="btn btn-default">Submit</button> -->
 	</form>	
