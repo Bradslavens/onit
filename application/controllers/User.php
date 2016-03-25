@@ -53,6 +53,8 @@ class User extends CI_Controller {
 		}
 
 		$this->load->view('templates/footer');
+
+		//TODO SEND MAILER
 	}
 
 
@@ -95,14 +97,18 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if($this->form_validation->run()===FALSE){
-			redirect(site_url()); // TODO change to alt login
+			redirect(site_url()); // TODO change to alt login .
 		}else{
 			// get users hash
 			$hash = $this->users_model->get_users_hash($this->input->post('email'));
 			// check password vs hash
 			if(password_verify($this->input->post('password'), $hash)){
 
+				// get users id and set it to session
+				$id = $this->users_model->get_users_id_by_email($this->input->post('email'));
+				$this->session->set_userdata(['user_id'=>$id]);
 				$_SESSION['is_logged_in'] = TRUE;
+				
 				redirect(site_url()); // TODO change to transaction list
 
 			}else{  

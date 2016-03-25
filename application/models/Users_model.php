@@ -76,7 +76,14 @@ class Users_model extends CI_Model {
 		return $r->pw;
 	}
 
+	public function get_users_id_by_email($email){
+		$this->db->select('id');
+		$this->db->where('email', $email);
+		$q = $this->db->get('users');
+		$r = $q->row();
+		return $r->id;
 
+	}
 	// Todo logout
 
 }

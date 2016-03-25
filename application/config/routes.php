@@ -63,3 +63,4 @@ $route['default_controller'] = 'welcome';
 $route['assets'] = 'assets';
 $route['(:any)']= 'welcome/view/$1';
 $route['404_override'] = 'errors/page_missing';
+$route['translate_uri_dashes'] = FALSE;
