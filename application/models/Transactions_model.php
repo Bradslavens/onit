@@ -27,6 +27,11 @@ class Transactions_model extends CI_Model {
 
 	public function get_transaction_details($transaction_id, $user_id){
 		$this->db->where('user_id', $user_id);
-		$this->db->where('transaction_id', $transaction_id);
+		$this->db->where('id', $transaction_id);
+		$q=$this->db->get('transactions');
+		$row = $q->row();
+
+		return $row;
+
 	}
 }

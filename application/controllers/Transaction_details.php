@@ -15,7 +15,9 @@ class Transaction_details extends CI_Controller {
 		$this->load->model('transactions_model');
 	}
 
-	public function index(){
-		
+	public function transaction_details($transaction_id = 4){
+		$user_id = $this->session->userdata('user_id');
+		$transaction_details = $this->transactions_model->get_transaction_details($transaction_id, $user_id);
+		var_dump($transaction_details->name);
 	}
 }
