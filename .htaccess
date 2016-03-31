@@ -2,11 +2,3 @@
 #RewriteCond $1 !^(index\.php|_/images|robots\.txt|assets|securimage/securimage_show\.php)
 #RewriteRule ^(.*)$ /index.php?/$1 [L]
 
-
-#RewriteEngine on
-#RewriteBase /onit/
-#RewriteCond $1 !^(index\.php|_/images|robots\.txt|assets|securimage/securimage_show\.php)
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-
-#RewriteRule ^(.*)$ /index.php?/$1 [L]
