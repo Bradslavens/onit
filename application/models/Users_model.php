@@ -4,7 +4,7 @@ class Users_model extends CI_Model {
 	protected $hash_password;
 	public function __construct()
 	{
-		$this->load->database();
+		//
 	}
 
 
