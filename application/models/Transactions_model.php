@@ -9,6 +9,8 @@ class Transactions_model extends CI_Model {
 	public function __construct()
 	{
 		//
+         // Call the Model constructor
+         parent::__construct();
 	}
 
 	/**
@@ -16,7 +18,7 @@ class Transactions_model extends CI_Model {
 	 * @param int $user_id 
 	 * @return array list of transactions
 	 */
-	public function get_transaction_list($user_id, $status = 7){ //TODO ALLOW OPTIONAL STATUS
+	public function index($user_id, $status = 7){ //TODO ALLOW OPTIONAL STATUS
 
 		$this->db->where('user_id', $user_id);
 		$this->db->where('status', $status);

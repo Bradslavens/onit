@@ -2,9 +2,11 @@
 class Users_model extends CI_Model {
 
 	protected $hash_password;
+
 	public function __construct()
-	{
-		//
+	{		
+         // Call the Model constructor
+         parent::__construct();
 	}
 
 
@@ -34,8 +36,15 @@ class Users_model extends CI_Model {
 			);
 		//insert the new user
 		$this->db->insert('users',$data);
-		//return the user id
-		return $this->db->insert_id();
+		//return the user id if inserted successfully
+		if($this->db->affected_rows() > 1){
+			return $this->db->insert_id();	
+		}
+
+		// if insert failed return false
+		else{
+			return FALSE;
+		}
 	}
 
 

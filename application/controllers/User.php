@@ -21,7 +21,7 @@ class User extends CI_Controller {
 	 * sets session user id to user id
 	 * @return void
 	 */
-	public function register()
+	public function index()
 	{
 		$this->load->view('templates/header');
 		//load libraries
@@ -29,11 +29,13 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->helper('security');		
 		//set validation rules for registration form
-		$this->form_validation->set_rules('email', 'email', 'required|callback_email_check|valid_email');  // TODO XSS CLEAN | callback_email_check'
+		$this->form_validation->set_rules('first_name', 'First Name', 'required|alpha_numeric');
+		$this->form_validation->set_rules('last_name','Last Name', 'required|alpha_numeric')
+		$this->form_validation->set_rules('email', 'email', 'required|callback_email_check|valid_email'); 
 		$this->form_validation->set_rules('password', 'Password', 'required');  
 		// validate form if false go back to registration elseif register user 
 		// and redirect to home page... for now 
-		if($this->form_validation->run($this)===FALSE)
+		if($this->form_validation->run()===FALSE)
 		{
 			// return to registraion page
 			$this->load->view('registration');
@@ -44,12 +46,15 @@ class User extends CI_Controller {
 			$cd = $this->security->xss_clean($this->input->post());
 			// set the user
 			$user_id = $this->users_model->set_user($cd['email'], $cd['password'],$cd['first_name'],$cd['last_name']);
-			// set the user session
-			$this->session->set_userdata('user_id', $user_id);
-			// goback home for now 
-			// TODO CHANGE THE REDIRECT TO THE TRANSACTION HOME PAGE
-			redirect(site_url());
-
+			// set the user session if user id exists
+			if($user_id != FALSE){
+				$this->session->set_userdata('user_id', $user_id);
+				redirect(site_url('home'));
+			}
+			// if no user id redirect to regitster
+			else{
+				redirect(site_url('register'));
+			}
 		}
 
 		$this->load->view('templates/footer');
@@ -60,15 +65,17 @@ class User extends CI_Controller {
 
 
 
-
+	// ---------------------------------------------
+	// VERIFY EMAIL IS UNIQUE
+	// -------------------------------------------
 
 	/**
 	 * Check if user already exists 
-	 * part of form validation within user registration
+	 * part of form validation within user registration 
 	 * @param string $str 
 	 * @return boolean
 	 */
-	public function email_check($str)
+	private function email_check($str)
 	{
 		// check email
 

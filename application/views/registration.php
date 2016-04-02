@@ -2,7 +2,7 @@
 
 	<?php echo validation_errors(); ?>
 
-	<?php echo form_open('user/register'); //<form>
+	<?php echo form_open('register'); //<form>
 	?>
 
 	<?php
