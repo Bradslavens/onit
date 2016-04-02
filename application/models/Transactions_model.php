@@ -8,7 +8,7 @@ class Transactions_model extends CI_Model {
 	 */
 	public function __construct()
 	{
-		$this->load->database();
+		//
 	}
 
 	/**
@@ -16,7 +16,7 @@ class Transactions_model extends CI_Model {
 	 * @param int $user_id 
 	 * @return array list of transactions
 	 */
-	public function get_transaction_list($user_id, $status = 1){ //TODO ALLOW OPTIONAL STATUS
+	public function get_transaction_list($user_id, $status = 7){ //TODO ALLOW OPTIONAL STATUS
 
 		$this->db->where('user_id', $user_id);
 		$this->db->where('status', $status);
@@ -32,6 +32,14 @@ class Transactions_model extends CI_Model {
 		$row = $q->row();
 
 		return $row;
+
+	}
+
+	public function add($data){
+		var_dump($data);
+		$this->db->insert('transactions', $data);
+		
+		return $this->db->insert_id();
 
 	}
 }

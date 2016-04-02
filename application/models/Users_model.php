@@ -8,10 +8,6 @@ class Users_model extends CI_Model {
 	}
 
 
-
-
-
-
 	/**
 	 * set up a new user
 	 * @param string $username username

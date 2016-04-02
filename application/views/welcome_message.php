@@ -28,7 +28,6 @@
                         'type'=>'email');
                         ?>
                 <?php echo form_input($data);
-                //should echo <input type="text" placeholder="Email" class="form-control">
                 ?>
               </div>
               <div class="form-group">
@@ -38,7 +37,6 @@
                       'class' => 'form-control',
                       'name'=>'password');
                   echo form_password($data); 
-                //<input type="password" placeholder="Password" class="form-control">
                 ?>
               </div>
               <button type="submit" name="submit" class="btn btn-success">Sign in</button>

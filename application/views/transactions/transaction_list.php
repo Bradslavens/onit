@@ -21,7 +21,7 @@
 									<span class="new_transaction_text">+ New Transaction</span>
 							</div>
 								</a>
-						<?php foreach($transactions as $transaction):;?>
+						<?php foreach($transactions as $transaction):?>
 						<div>
 							<?php $href = site_url("/proc/processing/cover/". $transaction['id']); ?>
 								<a href="<?php echo $href; ?> ">

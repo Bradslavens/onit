@@ -107,9 +107,9 @@ class User extends CI_Controller {
 				// get users id and set it to session
 				$id = $this->users_model->get_users_id_by_email($this->input->post('email'));
 				$this->session->set_userdata(['user_id'=>$id]);
-				$_SESSION['is_logged_in'] = TRUE;
+				$this->session->set_userdata(['is_logged_in' => TRUE]);
 				
-				redirect(site_url()); // TODO change to transaction list
+				redirect(site_url('/home')); // TODO change to transaction list
 
 			}else{  
 				
