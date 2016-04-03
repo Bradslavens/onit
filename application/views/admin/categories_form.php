@@ -1,5 +1,5 @@
 	<?= validation_errors(); ?>
-	<?= form_open('contact/add'); ?>
+	<?= form_open('categories/add'); ?>
 
 		  <div class="form-group">
 		    <label for="first_name">First Name</label>
@@ -28,5 +28,5 @@
 
 		  <input type="hidden" name= "user_id" value="<?= $user_id; ?>">
 		  <button type="submit" class="btn btn-default">Add</button>
-		  
+
 		</form>
