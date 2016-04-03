@@ -8,7 +8,7 @@ class Transaction extends CI_Controller {
 		parent::__construct();
 		
 		// check login
-		if($_SESSION['is_logged_in'] !== TRUE)
+		if($this->session->userdata['is_logged_in'] !== TRUE)
 		{
 			die('must be logged in');
 		}
@@ -16,29 +16,44 @@ class Transaction extends CI_Controller {
 	}
 
 	public function add(){
-		$this->load->view('templates/header');
-		$this->load->library('form_validation');
+		// load libraries
 		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+
+		$this->load->view('templates/header');
 
 		$this->form_validation->set_rules('name','Name', 'required');
 
-		if($this->form_validation->run() == FALSE){
+		if($this->form_validation->run() === FALSE){
 			//LOAD THE FORM
 			$this->load->view('transactions/add');
 		}
 		else
 		{
-			echo "here";
-			die();
+			//xxs lean the data
+			$clean = $this->security->xss_clean($this->input->post());
+
 			// set the data
 			$data = [
-			'name' => $this->input->post('name'),
+			'name' => $clean['name'],
 			'user_id' => $this->session->userdata('user_id'),
 			'status' => 7,
 			];
 
 			$id = $this->transactions_model->add($data);
-			var_dump($id);
+
+			// if failed send error
+			if($id === FALSE){
+				echo "submission failed please try again";
+			}
+
+			// if success back to home
+
+			else{
+				redirect(site_url('home'));
+			}
+
 		}
 
 

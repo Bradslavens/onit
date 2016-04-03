@@ -30,7 +30,7 @@ class User extends CI_Controller {
 		$this->load->helper('security');		
 		//set validation rules for registration form
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|alpha_numeric');
-		$this->form_validation->set_rules('last_name','Last Name', 'required|alpha_numeric')
+		$this->form_validation->set_rules('last_name','Last Name', 'required|alpha_numeric');
 		$this->form_validation->set_rules('email', 'email', 'required|callback_email_check|valid_email'); 
 		$this->form_validation->set_rules('password', 'Password', 'required');  
 		// validate form if false go back to registration elseif register user 
@@ -115,11 +115,9 @@ class User extends CI_Controller {
 				$id = $this->users_model->get_users_id_by_email($this->input->post('email'));
 				$this->session->set_userdata(['user_id'=>$id]);
 				$this->session->set_userdata(['is_logged_in' => TRUE]);
-				
-				redirect(site_url('/home')); // TODO change to transaction list
+				redirect(site_url('home')); // TODO change to transaction list
 
 			}else{  
-				
 				redirect(site_url()); // TODO change to alt login 
 
 			}
