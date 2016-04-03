@@ -1,6 +1,5 @@
 	<?= validation_errors(); ?>
 	<?= form_open('items/add'); ?>
-	<?php var_dump($categories); ?>
 
 		  <div class="form-group">
 		    <label for="name">Item Name</label>
@@ -25,6 +24,17 @@
 		    	<?php endforeach ?>
 		    </select>
 		  </div>
+
+
+		  <div class="form-group">
+		    <label for="item_parties">Item Parties (Select parties who should for example receive or sign this item, if any.)</label>
+		    <select multiple name="item_parties[]" id="item_parties" class="form-control">
+		    	<?php foreach ($item_parties as $value): ?>
+		    		<option value="<?= $value['id']; ?>" ><?= $value['name']; ?></option>
+		    	<?php endforeach ?>
+		    </select>
+		  </div>
+
 
 		  <input type="hidden" name= "user_id" value="<?= $user_id; ?>">
 		  <button type="submit" class="btn btn-default">Add</button>

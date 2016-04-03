@@ -46,8 +46,8 @@ class Items extends CI_Controller {
 		$this->load->view('templates/header');
 
 		//TODO set validation rules?
-		$this->form_validation->set_rules('name', 'Category Name', 'required|alpha_numeric');
-		$this->form_validation->set_rules('description', 'Description', 'alpha_numeric');
+		$this->form_validation->set_rules('name', 'Item Name', 'required');
+		$this->form_validation->set_rules('category', 'Category','numeric');
 
 		if($this->form_validation->run() === FALSE){
 			// load the contact form
@@ -59,6 +59,10 @@ class Items extends CI_Controller {
 			
 			// get categories list
 			$data['categories'] = $this->categories_model->cat_list($this->session->userdata('user_id'));
+
+			// get party list category 4
+			$this->load->model('items_model');
+			$data['item_parties'] = $this->items_model->get_by_category(4, $this->session->userdata('user_id'));
 
 			// load the view
 			$this->load->view('admin/items_form', $data);
