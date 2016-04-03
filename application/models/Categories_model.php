@@ -13,6 +13,20 @@ class Categories_model extends CI_Model {
          parent::__construct();
 	}
 
+	/**
+	 * Get category list
+	 */
+	public function cat_list($user_id){
+		
+		$this->db->where('user_id', $user_id);
+		$q = $this->db->get('categories');
+
+		return $q->result_array();
+	}
+
+	/**
+	 * add a category
+	 */
 	public function add($category){
 
 		$this->db->insert('categories', $category);

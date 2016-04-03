@@ -52,7 +52,16 @@ class Items extends CI_Controller {
 		if($this->form_validation->run() === FALSE){
 			// load the contact form
 			$data['user_id'] = $this->session->userdata('user_id');
-			$this->load->view('admin/categories_form', $data);
+
+			// get the categories for the form
+			// load the model
+			$this->load->model('categories_model');
+			
+			// get categories list
+			$data['categories'] = $this->categories_model->cat_list($this->session->userdata('user_id'));
+
+			// load the view
+			$this->load->view('admin/items_form', $data);
 		}
 
 		// add the contact

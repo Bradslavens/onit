@@ -15,7 +15,7 @@ class Items_model extends CI_Model {
 
 	public function add($item){
 
-		$this->db->insert('item', $item);
+		$this->db->insert('items', $item);
 
 		// verify insert
 		if($this->db->affected_rows()>0){
