@@ -57,10 +57,20 @@ class Contact extends CI_Controller {
 		// add the contact
 		else{
 			if($this->input->post('user_id')){
-				// add the contact
-				$contact_id = $this->Contacts_model->add($this->input->post());
-				echo $contact_id;
-				die();
+				// check user id match
+				if($this->input->post('user_id') === $this->session->userdata('user_id')){
+
+					// add the contact
+					$contact_id = $this->Contacts_model->add($this->input->post());
+					echo $contact_id;
+					die();
+				} 
+
+				// send back home
+				else
+				{
+					redirect(site_url());
+				}
 			}
 			// if no user id return to welcome screen
 			else{

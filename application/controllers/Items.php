@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends CI_Controller {
+class Items extends CI_Controller {
 
 	/**
 	 * construct Contact
@@ -23,7 +23,7 @@ class Categories extends CI_Controller {
 		}
 
 		// load libraries
-		$this->load->model('Categories_model');
+		$this->load->model('Items_model');
 		$this->load->library('form_validation');
 		$this->load->helper('form');
 	}
@@ -37,7 +37,7 @@ class Categories extends CI_Controller {
 	 */
 	public function index()
 	{
-		echo "list categories";
+		echo "list Items";
 	}
 
 
@@ -62,16 +62,17 @@ class Categories extends CI_Controller {
 				if($this->input->post('user_id') === $this->session->userdata('user_id')){
 
 					// add the contact
-					$contact_id = $this->Categories_model->add($this->input->post());
+					$contact_id = $this->Items_model->add($this->input->post());
 					echo $contact_id;
 					die();
-				}
-				
+				} 
+
 				// send back home
 				else
 				{
 					redirect(site_url());
 				}
+
 			}
 			// if no user id return to welcome screen
 			else{

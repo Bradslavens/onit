@@ -1,5 +1,5 @@
 <?php
-class Categories_model extends CI_Model {
+class Items_model extends CI_Model {
 
 	/**
 	 * construct 
@@ -13,9 +13,9 @@ class Categories_model extends CI_Model {
          parent::__construct();
 	}
 
-	public function add($category){
+	public function add($item){
 
-		$this->db->insert('categories', $category);
+		$this->db->insert('item', $item);
 
 		// verify insert
 		if($this->db->affected_rows()>0){
