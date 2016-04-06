@@ -1,4 +1,4 @@
 RewriteEngine on
-RewriteCond $1 !^(index\.php|_/images|robots\.txt|assets|securimage/securimage_show\.php)
-RewriteRule ^(.*)$ /onit/index.php?/$1 [L]
-
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* /onit/index.php/$0 [PT,L] 

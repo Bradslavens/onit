@@ -17,10 +17,14 @@ class Items_model extends CI_Model {
 	 * get item by category for form select lists
 	 */
 	public function get_by_category($category, $user_id){
-		$this->db->where('category', $category);
-		$this->db->where('user_id', $user_id);
 
-		$q= $this->db->get('items');
+		$this->db->select('items.id as id, items.name as name, items.subject as subject, items.description as description');
+		$this->db->from('item_categories');
+		$this->db->join('items', 'items.id = item_categories.item_id');
+		$this->db->where('item_categories.cat_id', $category);
+		$this->db->where('items.user_id', $user_id);
+
+		$q= $this->db->get();
 
 		return $q->result_array();
 	}
